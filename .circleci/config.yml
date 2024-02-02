@@ -6,7 +6,7 @@ orbs:
 jobs:
   build_and_deploy:
     docker:
-      - image: circleci/node:20
+      - image: circleci/node
     working_directory: ~/repo
     steps:
       - checkout
@@ -16,7 +16,7 @@ jobs:
       - run:
           name: Build
           command: npm run build:dev
-      # Remove the existing deploy steps
+
   deploy:
     docker:
       - image: arvindr226/alpine-ssh
@@ -35,4 +35,3 @@ workflows:
       - deploy:
           requires:
             - build_and_deploy
-
