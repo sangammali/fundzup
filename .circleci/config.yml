@@ -12,10 +12,10 @@ jobs:
       - checkout
       - run:
           name: Install Dependencies
-          command: npm install
+          command: npm install --legacy-peer-deps
       - run:
           name: Build
-          command: npm build
+          command: npm run build
 
   deploy:
     docker:
