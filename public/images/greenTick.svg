@@ -1,0 +1,57 @@
+<svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="24" height="25" fill="#1E1E1E"/>
+<g id="Customers">
+<path d="M-8314 -1658C-8314 -1659.1 -8313.1 -1660 -8312 -1660H9172C9173.1 -1660 9174 -1659.1 9174 -1658V5179C9174 5180.1 9173.11 5181 9172 5181H-8312C-8313.1 5181 -8314 5180.1 -8314 5179V-1658Z" fill="#404040"/>
+<path d="M-8312 -1643H9172V-1677H-8312V-1643ZM9157 -1658V5179H9191V-1658H9157ZM9172 5164H-8312V5198H9172V5164ZM-8297 5179V-1658H-8331V5179H-8297ZM-8312 5164C-8303.72 5164 -8297 5170.71 -8297 5179H-8331C-8331 5189.5 -8322.49 5198 -8312 5198V5164ZM9157 5179C9157 5170.72 9163.71 5164 9172 5164V5198C9182.49 5198 9191 5189.49 9191 5179H9157ZM9172 -1643C9163.72 -1643 9157 -1649.71 9157 -1658H9191C9191 -1668.5 9182.49 -1677 9172 -1677V-1643ZM-8312 -1677C-8322.49 -1677 -8331 -1668.49 -8331 -1658H-8297C-8297 -1649.72 -8303.72 -1643 -8312 -1643V-1677Z" fill="#F2994A"/>
+<g id="Developer/Dashboard">
+<rect width="1440" height="2205" transform="translate(-1275 -763)" fill="#F7F8FF"/>
+<g id="Frame 1000008434">
+<g id="Component 2234" filter="url(#filter0_d_644_17092)">
+<rect width="1152" height="650" transform="translate(-1011 -173.333)" fill="white"/>
+<g id="Content">
+<g clip-path="url(#clip0_644_17092)">
+<mask id="path-3-inside-1_644_17092" fill="white">
+<path d="M-1011 -67.3333H141V408.667H-1011V-67.3333Z"/>
+</mask>
+<path d="M-1011 -67.3333H141V408.667H-1011V-67.3333Z" fill="white"/>
+<g id="Column">
+<g id="Table cell">
+<mask id="path-5-inside-2_644_17092" fill="white">
+<path d="M-39.9999 -23.3333H141V48.6667H-39.9999V-23.3333Z"/>
+</mask>
+<path d="M-39.9999 -23.3333H141V48.6667H-39.9999V-23.3333Z" fill="white"/>
+<path d="M141 47.6667H-39.9999V49.6667H141V47.6667Z" fill="#EAECF0" mask="url(#path-5-inside-2_644_17092)"/>
+<g id="Frame 1000008021">
+<g id="Frame 1000008020">
+<rect x="-15.2499" y="-4.58325" width="54.5" height="34.5" rx="3.75" fill="#A1F0C2"/>
+<rect x="-15.2499" y="-4.58325" width="54.5" height="34.5" rx="3.75" stroke="#219653" stroke-width="1.5"/>
+<g id="charm:tick">
+<path id="Vector" d="M4.125 13.7917L9.375 19.0417L19.875 7.79175" stroke="#219653" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+<path d="M140 -67.3333V408.667H142V-67.3333H140ZM-1010 408.667V-67.3333H-1012V408.667H-1010Z" fill="#ECECEC" mask="url(#path-3-inside-1_644_17092)"/>
+</g>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<filter id="filter0_d_644_17092" x="-1020" y="-181.333" width="1170" height="667" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset/>
+<feGaussianBlur stdDeviation="4"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_644_17092"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_644_17092" result="shape"/>
+</filter>
+<clipPath id="clip0_644_17092">
+<path d="M-1011 -67.3333H141V408.667H-1011V-67.3333Z" fill="white"/>
+</clipPath>
+</defs>
+</svg>

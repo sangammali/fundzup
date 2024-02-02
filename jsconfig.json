@@ -1,0 +1,17 @@
+{
+	"compilerOptions": {
+		"jsx": "react-jsx",
+		"allowSyntheticDefaultImports": true,
+		"moduleResolution": "node",
+		"baseUrl": "src",
+		"paths": {
+			"components/*": ["components/*"],
+			"containers/*": ["containers/*"],
+			"helpers/*": ["helpers/*"],
+			"pages/*": ["pages/*"],
+			"stores/*": ["stores/*"],
+			"asset/*": ["asset/*"]
+		}
+	},
+	"include": ["src"]
+}
