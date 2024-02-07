@@ -16,16 +16,15 @@ jobs:
       - run:
           name: Build
           command: npm run build
-          persist_to_workspace:
-            root: .
-            paths:
-              - build
       - run:
-          name: Deploy to EC2
+          name: SSH into the instance and deploy
           command: |
-            scp -r -o StrictHostKeyChecking=no build $USER@$DNS:/home/ubuntu/sangam
+            ssh $USER@$DNS 'cd /home/ubuntu/sangam/build && rm -rf *'
+            scp -r -o StrictHostKeyChecking=no build/* $USER@$DNS:/home/ubuntu/sangam/build
+            ssh $USER@$DNS 'pm2 restart 0'
 
 workflows:
   deploy-to-ec2:
     jobs:
       - build_and_deploy
+
