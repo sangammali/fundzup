@@ -24,8 +24,7 @@ jobs:
       - run:
           name: Deploy to EC2
           command: |
-            ssh -oStrictHostKeyChecking=no -v $USER@$DNS "\
-            scp -r /build/* /home/ubuntu/sangam/"
+            scp -r -o StrictHostKeyChecking=no ./ $USER@$DNS/home/circleci-aws/"
 
 workflows:
   deploy-to-ec2:
