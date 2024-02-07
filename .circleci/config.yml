@@ -16,20 +16,16 @@ jobs:
       - run:
           name: Build
           command: npm run build
-
-  deploy:
-    docker:
-      - image: arvindr226/alpine-ssh
-    steps:
+          persist_to_workspace:
+            root: .
+            paths:
+              - build
       - run:
           name: Deploy to EC2
           command: |
-            scp -r -o StrictHostKeyChecking=no ~/repo/build $USER@$DNS:/home/ubuntu/sangam
+            scp -r -o StrictHostKeyChecking=no build $USER@$DNS:/home/ubuntu/sangam
 
 workflows:
   deploy-to-ec2:
     jobs:
       - build_and_deploy
-      - deploy:
-          requires:
-            - build_and_deploy
