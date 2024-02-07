@@ -15,11 +15,21 @@ jobs:
           command: npm install --legacy-peer-deps
       - run:
           name: Build
+          command: npm run build
+
+  deploy:
+    docker:
+      - image: arvindr226/alpine-ssh
+    steps:
+      - run:
+          name: Deploy to EC2
           command: |
-            npm run build
-            ls -la
+            scp -r -o StrictHostKeyChecking=no build $USER@$DNS:/home/ubuntu/sangam
 
 workflows:
   deploy-to-ec2:
     jobs:
       - build_and_deploy
+      - deploy:
+          requires:
+            - build_and_deploy
