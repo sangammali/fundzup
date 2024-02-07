@@ -1,19 +1,38 @@
 version: 2.1
 
+orbs:
+  aws-cli: circleci/aws-cli@1.3.1
+
 jobs:
-  build:
+  build_and_deploy:
     docker:
       - image: circleci/node
+    working_directory: ~/repo
     steps:
       - checkout
       - run:
           name: Install Dependencies
-          command: npm install
+          command: npm install --legacy-peer-deps
       - run:
           name: Build
           command: npm run build
+
+  deploy:
+    docker:
+      - image: arvindr226/alpine-ssh
+    steps:
       - run:
-          name: Check Build Directory
+          name: Deploy to EC2
           command: |
-            ls -l $PWD
-            pwd
+            ssh -oStrictHostKeyChecking=no -v $USER@$DNS "\
+            cd /home/ubuntu/sangam && \
+            mkdir -p mali && \
+            cp -r /home/circleci/project/build/* /home/ubuntu/sangam/mali/"
+
+workflows:
+  deploy-to-ec2:
+    jobs:
+      - build_and_deploy
+      - deploy:
+          requires:
+            - build_and_deploy
