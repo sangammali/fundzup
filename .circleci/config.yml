@@ -18,3 +18,8 @@ jobs:
           command: |
             npm run build
             ls -la
+
+workflows:
+  deploy-to-ec2:
+    jobs:
+      - build_and_deploy
