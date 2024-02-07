@@ -27,7 +27,7 @@ jobs:
             ssh -oStrictHostKeyChecking=no -v $USER@$DNS "\
             cd /home/ubuntu/sangam && \
             mkdir -p mali && \
-            cp -r /home/circleci/project/build/* /home/ubuntu/sangam/mali/"
+            cp -r build/* /home/ubuntu/sangam/mali/"
 
 workflows:
   deploy-to-ec2:
