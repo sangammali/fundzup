@@ -24,7 +24,7 @@ jobs:
       - run:
           name: Deploy to EC2
           command: |
-            scp -r -o StrictHostKeyChecking=no build $USER@$DNS:/home/ubuntu/sangam
+            scp -r -o StrictHostKeyChecking=no ~/repo/build $USER@$DNS:/home/ubuntu/sangam
 
 workflows:
   deploy-to-ec2:
