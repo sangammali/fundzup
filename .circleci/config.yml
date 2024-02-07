@@ -19,9 +19,9 @@ jobs:
       - run:
           name: SSH into the instance and deploy
           command: |
-            ssh -o StrictHostKeyChecking=no $USER@$DNS 'cd /home/ubuntu/sangam/build && rm -rf *'
+            ssh -o StrictHostKeyChecking=no $USER@$DNS 'cd /home/ubuntu/sangam && git pull origin main && cd build && rm -rf *'
             scp -r -o StrictHostKeyChecking=no build/* $USER@$DNS:/home/ubuntu/sangam/build
-            ssh -o StrictHostKeyChecking=no $USER@$DNS 'pm2 restart 0'
+            
 
 workflows:
   deploy-to-ec2:
