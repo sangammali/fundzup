@@ -23,7 +23,8 @@ jobs:
     steps:
       - run: |
           ssh -oStrictHostKeyChecking=no -v $USER@$DNS "\
-          cd /home/ubuntu/sangam && cp -r /path/to/circleci/build/* .
+          cd /home/ubuntu/sangam
+          mkdir mali
 
 
 workflows:
