@@ -23,10 +23,8 @@ jobs:
     steps:
       - run: |
           ssh -oStrictHostKeyChecking=no -v $USER@$DNS "\
-            sudo sh -c '\
-            cd /home/ubuntu && \
-            rm -rf sangam/* && \
-            cp -r /path/to/circleci/build/* /home/ubuntu/sangam/'"
+          cd /home/ubuntu/sangam && cp -r /path/to/circleci/build/* .
+
 
 workflows:
   deploy-to-ec2:
