@@ -17,14 +17,15 @@ jobs:
           name: Build
           command: npm run build
 
-  deploy:
-    docker:
-      - image: arvindr226/alpine-ssh
-    steps:
-      - run: |
-          ssh -oStrictHostKeyChecking=no -v $USER@$DNS "\
-          cd /home/ubuntu/sangam
-          mkdir mali
+deploy:
+  docker:
+    - image: arvindr226/alpine-ssh
+  steps:
+    - run: |
+        ssh -oStrictHostKeyChecking=no -v $USER@$DNS "\
+        cd /home/ubuntu/sangam && \
+        mkdir mali"
+
 
 
 workflows:
