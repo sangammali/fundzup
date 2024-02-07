@@ -16,6 +16,8 @@ jobs:
       - run:
           name: Build
           command: npm run build
+                   ls -la
+
 
   deploy:
     docker:
