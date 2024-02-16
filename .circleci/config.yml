@@ -11,21 +11,13 @@ jobs:
       - run:
           name: Manual Approval
           command: echo "Manual approval required"
-      - run:
-          name: Sleep
-          command: sleep 20s  # Adjust the duration as needed
-      - run:
-          name: Cancel Workflow
-          command: |
-            curl -X POST -H "Circle-Token: $CIRCLECI_API_TOKEN" \
-            -d "{\"cancel_running\": true}" \
-            https://circleci.com/api/v2/project/github/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/pipeline/$CIRCLE_WORKFLOW_ID/cancel
 
   build_and_deploy:
     docker:
       - image: circleci/node:14.17.0
     working_directory: ~/repo
     steps:
+      - checkout
       - attach_workspace:
           at: ~/repo
       - run:
@@ -44,7 +36,8 @@ jobs:
 workflows:
   deploy-to-ec2:
     jobs:
-      - hold
+      - hold:
+          type: approval
       - build_and_deploy:
           requires:
             - hold
