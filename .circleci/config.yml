@@ -4,10 +4,10 @@ orbs:
   aws-cli: circleci/aws-cli@2.0.0
 
 jobs:
-  build\_and\_deploy:
+  build:
     docker:
       - image: circleci/node:14.17.0
-    working\_directory: ~/repo
+    working_directory: ~/repo
     steps:
       - checkout
       - run:
@@ -16,25 +16,34 @@ jobs:
       - run:
           name: Build
           command: npm run build
+
+  hold:
+    docker:
+      - image: circleci/node:14.17.0
+    steps:
+      - run:
+          name: Manual Approval
+          command: echo "Manual approval required"
+
+  deploy:
+    docker:
+      - image: circleci/node:14.17.0
+    steps:
       - run:
           name: SSH into the instance and deploy
           command: |
-            ssh -o StrictHostKeyChecking=no $USER@$DNS 'cd /home/ubuntu/sangam && git pull origin main && cd build && rm -rf \*'
-            scp -r -o StrictHostKeyChecking=no build/\* $USER@$DNS:/home/ubuntu/sangam/build
-
-  manual\_approval:
-    type: approval
-    requires:
-      - build\_and\_deploy
-    filters:
-      branches:
-        only: main
+            ssh -o StrictHostKeyChecking=no $USER@$DNS 'cd /home/ubuntu/funds-up/funds-up-portal && cd build && rm -rf *'
+            scp -r -o StrictHostKeyChecking=no build/* $USER@$DNS:/home/ubuntu/funds-up/funds-up-portal/build
+            ssh -o StrictHostKeyChecking=no $USER@$DNS 'pm2 restart 0'
 
 workflows:
   deploy-to-ec2:
     jobs:
-      - build\_and\_deploy:
-          filters:
-            branches:
-              only: main
-      - manual\_approval
+      - hold:
+          type: approval
+      - build:
+          requires:
+            - hold
+      - deploy:
+          requires:
+            - build
