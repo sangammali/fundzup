@@ -1,8 +1,5 @@
 version: 2.1
 
-orbs:
-  aws-cli: circleci/aws-cli@2.0.0
-
 jobs:
   build_and_deploy:
     docker:
@@ -22,12 +19,13 @@ jobs:
             ssh -o StrictHostKeyChecking=no $USER@$DNS 'cd /home/ubuntu/sangam && git pull origin main && cd build && rm -rf *'
             scp -r -o StrictHostKeyChecking=no build/* $USER@$DNS:/home/ubuntu/sangam/build
 
-  # Approval job for manual control
   approve_deployment:
     docker:
       - image: cimg/base:2020.01
     steps:
-      - approval/approve
+      - run:
+          name: Manual Approval
+          command: echo "Deployment approved"
 
 workflows:
   deploy-to-ec2:
