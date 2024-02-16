@@ -23,18 +23,11 @@ jobs:
     docker:
       - image: cimg/base:2020.01
     steps:
-      - run:
-          name: Manual Approval
-          command: echo "Pipeline approved"
+      - approval/approve:
+          requires:
+            - build_and_deploy
 
 workflows:
   deploy-to-ec2:
     jobs:
-      - manual_approval:
-          filters:
-            branches:
-              only:
-                - main
-      - build_and_deploy:
-          requires:
-            - manual_approval
+      - manual_approval
