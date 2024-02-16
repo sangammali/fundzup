@@ -19,15 +19,13 @@ jobs:
             ssh -o StrictHostKeyChecking=no $USER@$DNS 'cd /home/ubuntu/sangam && git pull origin main && cd build && rm -rf *'
             scp -r -o StrictHostKeyChecking=no build/* $USER@$DNS:/home/ubuntu/sangam/build
 
-  manual_approval:
-    docker:
-      - image: cimg/base:2020.01
-    steps:
-      - approval/approve:
-          requires:
-            - build_and_deploy
+  hold:
+    type: approval
+    requires:
+      - build_and_deploy
 
 workflows:
   deploy-to-ec2:
     jobs:
-      - manual_approval
+      - build_and_deploy
+      - hold
