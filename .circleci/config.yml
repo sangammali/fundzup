@@ -22,10 +22,22 @@ jobs:
             ssh -o StrictHostKeyChecking=no $USER@$DNS 'cd /home/ubuntu/sangam && git pull origin main && cd build && rm -rf *'
             scp -r -o StrictHostKeyChecking=no build/* $USER@$DNS:/home/ubuntu/sangam/build
 
+  # Approval job for manual control
+  approve_deployment:
+    type: approval
+    requires:
+      - build_and_deploy
+    context:
+      # Provide relevant information for approvers (optional)
+      build_status: ${{ job.status }}
+      commit_message: ${{ github.event.message }}
+      branch_name: ${{ github.event.ref }}
+
 workflows:
   deploy-to-ec2:
     jobs:
-      - build_and_deploy:
-          # Manual trigger configuration
-          triggers:
-            - type: manual
+      - build_and_deploy
+      - approve_deployment:
+          # Only run after build_and_deploy succeeds
+          requires:
+            - build_and_deploy
