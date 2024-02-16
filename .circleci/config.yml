@@ -4,7 +4,7 @@ orbs:
   aws-cli: circleci/aws-cli@2.0.0
 
 jobs:
-  hold:
+  approval:
     docker:
       - image: circleci/node:14.17.0
     steps:
@@ -34,18 +34,10 @@ jobs:
             ssh -o StrictHostKeyChecking=no $USER@$DNS 'pm2 restart 0'
 
 workflows:
-  nightly:
-    triggers:
-      - schedule:
-          cron: "0 0 * * *"
-          filters:
-            branches:
-              only:
-                - main
-                - beta
+  deploy-to-ec2:
     jobs:
-      - hold:
+      - approval:
           type: approval
+      - build_and_deploy:
           requires:
-            - build_and_deploy
-            - hold
+            - approval
