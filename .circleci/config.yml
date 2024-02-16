@@ -21,9 +21,12 @@ jobs:
           command: |
             ssh -o StrictHostKeyChecking=no $USER@$DNS 'cd /home/ubuntu/sangam && git pull origin main && cd build && rm -rf *'
             scp -r -o StrictHostKeyChecking=no build/* $USER@$DNS:/home/ubuntu/sangam/build
-            
 
 workflows:
   deploy-to-ec2:
     jobs:
-      - build_and_deploy
+      - build_and_deploy:
+          # Manual trigger configuration
+          triggers:
+            - type: manual
+
