@@ -8,12 +8,11 @@ jobs:
     docker:
       - image: circleci/node:14.17.0
     steps:
-      - run:
-          name: Manual Approval
-          command: echo "Manual approval required"
-      - hold:  # Placeholder for the timeout
+      - hold:  # Placeholder for manual approval
           type: approval
-          author: "Approval Timeout"
+      - hold:  # Placeholder for scheduled job to cancel workflow
+          type: approval
+          author: "Cancel Workflow"
           duration: 20s  # Timeout duration, adjust as needed
 
   build_and_deploy:
