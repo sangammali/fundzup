@@ -4,31 +4,23 @@ orbs:
   aws-cli: circleci/aws-cli@2.0.0
 
 jobs:
-  build:
+  build_and_deploy:
     docker:
       - image: circleci/node:14.17.0
     working_directory: ~/repo
     steps:
+      - hold:  # Manual approval step
+          type: approval
       - checkout
+      - run:
+          name: Manual Approval
+          command: echo "Manual approval required"
       - run:
           name: Install Dependencies
           command: npm install --legacy-peer-deps
       - run:
           name: Build
           command: npm run build
-
-  hold:
-    docker:
-      - image: circleci/node:14.17.0
-    steps:
-      - run:
-          name: Manual Approval
-          command: echo "Manual approval required"
-
-  deploy:
-    docker:
-      - image: circleci/node:14.17.0
-    steps:
       - run:
           name: SSH into the instance and deploy
           command: |
@@ -39,11 +31,4 @@ jobs:
 workflows:
   deploy-to-ec2:
     jobs:
-      - hold:
-          type: approval
-      - build:
-          requires:
-            - hold
-      - deploy:
-          requires:
-            - build
+      - build_and_deploy
