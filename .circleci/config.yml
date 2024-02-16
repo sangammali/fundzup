@@ -4,6 +4,14 @@ orbs:
   aws-cli: circleci/aws-cli@2.0.0
 
 jobs:
+  hold:
+    docker:
+      - image: circleci/node:14.17.0
+    steps:
+      - run:
+          name: Manual Approval
+          command: echo "Manual approval required"
+
   build_and_deploy:
     docker:
       - image: circleci/node:14.17.0
@@ -26,10 +34,18 @@ jobs:
             ssh -o StrictHostKeyChecking=no $USER@$DNS 'pm2 restart 0'
 
 workflows:
-  deploy-to-ec2:
-    jobs:
-      - build_and_deploy:
+  nightly:
+    triggers:
+      - schedule:
+          cron: "0 0 * * *"
           filters:
             branches:
               only:
                 - main
+                - beta
+    jobs:
+      - hold:
+          type: approval
+          requires:
+            - build_and_deploy
+            - hold
