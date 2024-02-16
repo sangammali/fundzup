@@ -24,16 +24,15 @@ jobs:
 
   # Approval job for manual control
   approve_deployment:
-    type: approval
-    requires:
-      - build_and_deploy
-
+    docker:
+      - image: cimg/base:2020.01
+    steps:
+      - approval/approve
 
 workflows:
   deploy-to-ec2:
     jobs:
       - build_and_deploy
       - approve_deployment:
-          # Only run after build_and_deploy succeeds
           requires:
             - build_and_deploy
