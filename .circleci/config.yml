@@ -27,11 +27,7 @@ jobs:
     type: approval
     requires:
       - build_and_deploy
-    context:
-      # Provide relevant information for approvers (optional)
-      build_status: ${{ job.status }}
-      commit_message: ${{ github.event.message }}
-      branch_name: ${{ github.event.ref }}
+
 
 workflows:
   deploy-to-ec2:
