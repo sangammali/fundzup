@@ -29,4 +29,3 @@ workflows:
           # Manual trigger configuration
           triggers:
             - type: manual
-
