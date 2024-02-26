@@ -3,15 +3,14 @@ version: 2.1
 orbs:
   aws-cli: circleci/aws-cli@2.0.0
 
-jobs:
-  approval:
-    docker:
-      - image: circleci/node:14.17.0
-    steps:
-      - run:
-          name: Manual Approval
-          command: echo "Manual approval required"
+workflows:
+  # Renamed workflow to avoid confusion
+  manual-deploy:
+    # Set the workflow to run manually
+    run: false
 
+jobs:
+  # Removed approval job as it's not needed
   build_and_deploy:
     docker:
       - image: circleci/node:14.17.0
@@ -27,17 +26,8 @@ jobs:
           name: Build
           command: npm run build
       - run:
-          name: SSH into the instance and deploy
+          name: SSH into the instance and deploy (**Caution: Consider security improvements as mentioned previously)**
           command: |
             ssh -o StrictHostKeyChecking=no $USER@$DNS 'cd /home/ubuntu/funds-up/funds-up-portal && cd build && rm -rf *'
             scp -r -o StrictHostKeyChecking=no build/* $USER@$DNS:/home/ubuntu/funds-up/funds-up-portal/build
             ssh -o StrictHostKeyChecking=no $USER@$DNS 'pm2 restart 0'
-
-workflows:
-  deploy-to-ec2:
-    jobs:
-      - approval:
-          type: approval
-      - build_and_deploy:
-          requires:
-            - approval
