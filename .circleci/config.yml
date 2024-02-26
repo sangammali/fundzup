@@ -29,10 +29,4 @@ workflows:
   deploy-to-ec2:
     jobs:
       - build_and_deploy:
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              ignore: /.*/
-            # Only run when manually triggered
-            manual: true
+          type: approval
