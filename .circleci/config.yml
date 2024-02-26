@@ -3,6 +3,15 @@ version: 2.1
 orbs:
   aws-cli: circleci/aws-cli@2.0.0
 
+workflows:
+  # Replace with your desired workflow name (lowercase recommended)
+  build-and-deploy:
+    # Trigger the workflow only on pushes to the "test" branch
+    jobs:
+      - build_and_deploy:
+          filters:
+            branches:
+              only: test
 
 jobs:
   build_and_deploy:
@@ -25,13 +34,3 @@ jobs:
             ssh -o StrictHostKeyChecking=no $USER@$DNS 'cd /home/ubuntu/funds-up/funds-up-portal && cd build && rm -rf *'
             scp -r -o StrictHostKeyChecking=no build/* $USER@$DNS:/home/ubuntu/funds-up/funds-up-portal/build
             ssh -o StrictHostKeyChecking=no $USER@$DNS 'pm2 restart 0'
-            
- workflows:
-  # Replace with your desired workflow name (lowercase recommended)
-  build-and-deploy:
-    # Trigger the workflow only on pushes to the "test" branch
-    jobs:
-      - build_and_deploy:
-          filters:
-            branches:
-              only: test
