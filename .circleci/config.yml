@@ -6,8 +6,13 @@ orbs:
 workflows:
   # Replace with your desired workflow name (lowercase recommended)
   build-and-deploy:
-    # Set the workflow to run manually
-    run: false
+    # Trigger the workflow only on pushes to the "test" branch
+    filters:
+      branches:
+        only: test
+
+    # Set the workflow to run manually (optional)
+    # run: false
 
     jobs:
       - # Use a sequence here
@@ -26,7 +31,7 @@ workflows:
                 name: Build
                 command: npm run build
             - run:
-                name: SSH into the instance and deploy (**Caution: Consider security improvements!**)
+                name: SSH into the instance and deploy
                 command: |
                   ssh -o StrictHostKeyChecking=no $USER@$DNS 'cd /home/ubuntu/funds-up/funds-up-portal && cd build && rm -rf *'
                   scp -r -o StrictHostKeyChecking=no build/* $USER@$DNS:/home/ubuntu/funds-up/funds-up-portal/build
