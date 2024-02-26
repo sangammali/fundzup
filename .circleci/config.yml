@@ -4,30 +4,27 @@ orbs:
   aws-cli: circleci/aws-cli@2.0.0
 
 workflows:
-  # Renamed workflow to avoid confusion
   manual-deploy:
-    # Set the workflow to run manually
     run: false
-    # Define the jobs within the workflow
     jobs:
-      # Example job - replace with your actual job definitions
-      build_and_deploy:
-        docker:
-          - image: circleci/node:14.17.0
-        working_directory: ~/repo
-        steps:
-          - checkout
-          - attach_workspace:
-              at: ~/repo
-          - run:
-              name: Install Dependencies
-              command: npm install --legacy-peer-deps
-          - run:
-              name: Build
-              command: npm run build
-          - run:
-              name: SSH into the instance and deploy
-              command: |
-                ssh -o StrictHostKeyChecking=no $USER@$DNS 'cd /home/ubuntu/funds-up/funds-up-portal && cd build && rm -rf *'
-                scp -r -o StrictHostKeyChecking=no build/* $USER@$DNS:/home/ubuntu/funds-up/funds-up-portal/build
-                ssh -o StrictHostKeyChecking=no $USER@$DNS 'pm2 restart 0'
+      - build_and_deploy: # Start of the first job definition
+          docker:
+            - image: circleci/node:14.17.0
+          working_directory: ~/repo
+          steps:
+            - checkout
+            - attach_workspace:
+                at: ~/repo
+            - run:
+                name: Install Dependencies
+                command: npm install --legacy-peer-deps
+            - run:
+                name: Build
+                command: npm run build
+            - run:
+                name: SSH into the instance and deploy
+                command: |
+                  ssh -o StrictHostKeyChecking=no $USER@$DNS 'cd /home/ubuntu/funds-up/funds-up-portal && cd build && rm -rf *'
+                  scp -r -o StrictHostKeyChecking=no build/* $USER@$DNS:/home/ubuntu/funds-up/funds-up-portal/build
+                  ssh -o StrictHostKeyChecking=no $USER@$DNS 'pm2 restart 0'
+      # Add more jobs here if needed
