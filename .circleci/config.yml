@@ -30,5 +30,9 @@ workflows:
     jobs:
       - build_and_deploy:
           filters:
+            branches:
+              ignore: /.*/
             tags:
-              only: /^manual.*$/
+              ignore: /.*/
+            # Only run when manually triggered
+            manual: true
