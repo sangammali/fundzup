@@ -4,9 +4,7 @@ orbs:
   aws-cli: circleci/aws-cli@2.0.0
 
 workflows:
-  # Replace with your desired workflow name
   buidl-deploy:
-    # Set the workflow to run manually
     run: false
 
     jobs:
