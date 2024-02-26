@@ -10,26 +10,27 @@ workflows:
     run: false
 
     jobs:
-      build_and_deploy:
-        docker:
-          - image: circleci/node:14.17.0
-        working_directory: ~/repo
-        steps:
-          - checkout
-          - attach_workspace:
-              at: ~/repo
-          - run:
-              name: Install Dependencies
-              command: npm install --legacy-peer-deps
-          - run:
-              name: Build
-              command: npm run build
-          - run:
-              name: SSH into the instance and deploy
-              command: |
-                ssh -o StrictHostKeyChecking=no $USER@$DNS 'cd /home/ubuntu/funds-up/funds-up-portal && cd build && rm -rf *'
-                scp -r -o StrictHostKeyChecking=no build/* $USER@$DNS:/home/ubuntu/funds-up/funds-up-portal/build
-                ssh -o StrictHostKeyChecking=no $USER@$DNS 'pm2 restart 0'
+      - # Use a sequence here
+        build_and_deploy:
+          docker:
+            - image: circleci/node:14.17.0
+          working_directory: ~/repo
+          steps:
+            - checkout
+            - attach_workspace:
+                at: ~/repo
+            - run:
+                name: Install Dependencies
+                command: npm install --legacy-peer-deps
+            - run:
+                name: Build
+                command: npm run build
+            - run:
+                name: SSH into the instance and deploy (**Caution: Consider security improvements!**)
+                command: |
+                  ssh -o StrictHostKeyChecking=no $USER@$DNS 'cd /home/ubuntu/funds-up/funds-up-portal && cd build && rm -rf *'
+                  scp -r -o StrictHostKeyChecking=no build/* $USER@$DNS:/home/ubuntu/funds-up/funds-up-portal/build
+                  ssh -o StrictHostKeyChecking=no $USER@$DNS 'pm2 restart 0'
 
 # **Caution: Consider security improvements!**
 # - Implement proper SSH key authentication.
