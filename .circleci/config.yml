@@ -1,16 +1,14 @@
 version: 2.1
 
 workflows:
+  version: 2
   build_and_deploy:
     jobs:
       - build_and_deploy:
           filters:
             branches:
-              only:
-                - main
-            tags:
-              only:
-                - web
+              ignore:
+                - '*'
 
 jobs:
   build_and_deploy:
